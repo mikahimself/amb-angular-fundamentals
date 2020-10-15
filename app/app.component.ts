@@ -64,6 +64,39 @@ interface Passenger {
         </ul>
       </div>
       
+      <div>
+        <h2>Style alternative 1</h2>
+        <h3>Airline passengers</h3>
+        <ul>
+          <li *ngFor="let passenger of passengers; let i = index;">
+            <!-- Editing the style attribute with javascript style syntax here -->
+            <span 
+              class="status"
+              [style.backgroundColor]="passenger.checkedIn ? '#2ecc71' : 'c0392b'"></span>
+            {{ i }}: {{ passenger.fullname }}
+            test
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+        <h2>Style alternative 2</h2>
+        <h3>Airline passengers</h3>
+        <ul>
+          <li *ngFor="let passenger of passengers; let i = index;">
+            <!-- Editing the style attribute with ngStyle here -->
+            <span 
+              class="status"
+              [ngStyle]="{ 
+                backgroundColor: (passenger.checkedIn ? '#2ecc71' : 'c0392b')
+              }">
+              </span>
+            {{ i }}: {{ passenger.fullname }}
+            test
+          </li>
+        </ul>
+      </div>
+      
       <!-- Behind the scenes version.
       <div>
         <h3>Airline passengers - Templated</h3>
