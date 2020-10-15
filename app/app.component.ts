@@ -23,7 +23,7 @@ interface Passenger {
             Searching for... {{ name }}
           </div>
 
-          <!-- Behind the scenes -->
+          <!-- Behind the scenes version. -->
           <template [ngIf]="name.length > 2">
             <div>
               Searching for... {{ name }}
@@ -32,17 +32,39 @@ interface Passenger {
 
       </div>
 
+      
       <div>
         <h2>ngFor</h2>
         <h3>Airline passengers</h3>
         <ul>
           <li *ngFor="let passenger of passengers; let i = index;">
+            <!-- This approach is good for adding a single class -->
+            <span 
+              class="status"
+              [class.checked-in]="passenger.checkedIn"></span>
             {{ i }}: {{ passenger.fullname }}
           </li>
         </ul>
       </div>
       
-      <!-- Behind the scenes -->
+      <div>
+        <h2>ngFor</h2>
+        <h3>Airline passengers</h3>
+        <ul>
+          <li *ngFor="let passenger of passengers; let i = index;">
+            <!-- This approach is good for adding multiple classes -->
+            <span 
+              class="status"
+              [ngClass]="{
+                'checked-in': passenger.checkedIn,
+                'checked-out': !passenger.checkedIn
+              }"></span>
+            {{ i }}: {{ passenger.fullname }}
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Behind the scenes version.
       <div>
         <h3>Airline passengers - Templated</h3>
         <ul>
@@ -53,6 +75,7 @@ interface Passenger {
           </template>
         </ul>
       </div>
+      -->
     </div>
   `,
 })
