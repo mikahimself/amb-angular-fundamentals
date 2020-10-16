@@ -3,7 +3,8 @@ import { Component } from "@angular/core";
 interface Passenger {
   id: number,
   fullname: string,
-  checkedIn: boolean
+  checkedIn: boolean,
+  checkedInDate: number | null
 }
 
 @Component({
@@ -92,12 +93,35 @@ interface Passenger {
               }">
               </span>
             {{ i }}: {{ passenger.fullname }}
-            test
           </li>
         </ul>
       </div>
       
-      <!-- Behind the scenes version.
+      <div>
+        <h3>Airline passengers | Pipe operations</h3>
+        <ul>
+          <li *ngFor="let passenger of passengers; let i = index;">
+            <!-- Editing the style attribute with ngStyle here -->
+            <span 
+              class="status"
+              [ngStyle]="{ 
+                backgroundColor: (passenger.checkedIn ? '#2ecc71' : 'c0392b')
+              }">
+              </span>
+            {{ i }}: {{ passenger.fullname }}
+            <!-- JSON Pipe -->
+            <p>{{ passenger | json }}
+            <div class="date">
+              <!-- Pipes can be chained and used in ternary operators -->
+              Check-in date: {{ 
+                passenger.checkedInDate ? (passenger.checkedInDate | date: 'yMMMMd' | uppercase ) : 'Not checked in yet' 
+              }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Behind the scenes version of ngFor loop.
       <div>
         <h3>Airline passengers - Templated</h3>
         <ul>
@@ -114,27 +138,33 @@ interface Passenger {
 })
 export class AppComponent {
   // ngIf is a structural directive; it can be used to conditionally show and hide elements.
+  // Pipes are generally used for data transformation
   name: string = '';
   passengers: Passenger[] = [{
     id: 1,
     fullname: 'Mika',
-    checkedIn: true
+    checkedIn: true,
+    checkedInDate: 1490742000000
   }, {
     id: 2,
     fullname: 'Joakim',
-    checkedIn: true
+    checkedIn: true,
+    checkedInDate: 1491606000000
   }, {
     id: 3,
     fullname: 'Esko Mörkö',
-    checkedIn: false
+    checkedIn: false,
+    checkedInDate: null
   }, {
     id: 4,
     fullname: 'Spönteri Könteri',
-    checkedIn: true
+    checkedIn: true,
+    checkedInDate: 1488412800000
   }, {
     id: 5,
     fullname: 'Frida',
-    checkedIn: false
+    checkedIn: false,
+    checkedInDate: null
   }]
 
   handleChange(value: string) {
