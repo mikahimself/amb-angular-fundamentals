@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Passenger } from '../../models/passenger.interface';
 
 @Component({
@@ -40,7 +40,7 @@ import { Passenger } from '../../models/passenger.interface';
   `
 })
 
-export class PassengerDetailComponent {
+export class PassengerDetailComponent implements OnChanges, OnInit {
   @Input()
   detail: Passenger;
 
@@ -50,6 +50,20 @@ export class PassengerDetailComponent {
   edit: EventEmitter<any> = new EventEmitter();
   editing: boolean = false;
   constructor() { }
+
+  ngOnChanges(changes) {
+    if (changes.detail) {
+      // Reassign this.detail to a copy of itself to prevent changes
+      // from unintentionally flowing back to the parent, because 
+      // the passenger data is passed in via reference.
+      this.detail = Object.assign({}, changes.detail.currentValue);
+    }
+    console.log("on changes")
+  }
+
+  ngOnInit() {
+    console.log("On Init")
+  }
 
   onNameChange(value: string) {
     // Save the local state (i.e. updated name), as it gets deleted when user clicks Done.
