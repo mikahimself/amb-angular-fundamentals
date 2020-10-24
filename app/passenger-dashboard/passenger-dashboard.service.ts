@@ -1,7 +1,13 @@
+import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
 import { Passenger } from './models/passenger.interface';
 
+// When a service relies on a provider, such as Http, 
+// the service must be marked with the Injectable decorator.
+// This tells Angular that stuff can be injected into the service's constructor.
+@Injectable()
 export class PassengerDashboardService {
-  constructor() {}
+  constructor(private http: Http) {}
 
   getPassengers(): Passenger[] {
     return [
