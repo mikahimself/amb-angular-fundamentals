@@ -58,12 +58,9 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
       // the passenger data is passed in via reference.
       this.detail = Object.assign({}, changes.detail.currentValue);
     }
-    console.log("on changes")
   }
 
-  ngOnInit() {
-    console.log("On Init")
-  }
+  ngOnInit() {}
 
   onNameChange(value: string) {
     // Save the local state (i.e. updated name), as it gets deleted when user clicks Done.

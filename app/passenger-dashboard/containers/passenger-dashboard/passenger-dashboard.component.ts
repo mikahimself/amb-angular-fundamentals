@@ -31,8 +31,14 @@ export class PassengerDashboardComponent implements OnInit {
   constructor(private passengerService: PassengerDashboardService) {}
 
   ngOnInit() {
-    // This here is a synchronous call for data.
-    this.passengers = this.passengerService.getPassengers();
+    // This here is a synchronous call for data that returned an array
+    //this.passengers = this.passengerService.getPassengers();
+
+    // Here's the updated call that gets an Observable and
+    // assigns the Observables' data to the local this.passengers.
+    this.passengerService
+      .getPassengers()
+      .subscribe((data: Passenger[]) => this.passengers = data);
   }
 
   handleEdit(event: Passenger) {

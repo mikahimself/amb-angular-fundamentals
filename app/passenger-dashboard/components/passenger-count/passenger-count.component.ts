@@ -6,8 +6,9 @@ import { Passenger } from '../../models/passenger.interface';
   template: `
     <div>
       <h3>Airline Passengers</h3>
+      <!-- Since data is being loaded async, use the safe navigation operator with items.length --> 
       <div>
-        Total checked in: {{ checkedItemCount() }}/{{ items.length }}
+        Total checked in: {{ checkedItemCount() }}/{{ items?.length }}
       </div>
     </div>
   `
