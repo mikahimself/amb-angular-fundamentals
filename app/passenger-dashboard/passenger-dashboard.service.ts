@@ -27,4 +27,17 @@ export class PassengerDashboardService {
       // - map from rxjs/add/operator/map
       .map((response: Response) => response.json())
   }
+
+  updatePassenger(passenger: Passenger): Observable<Passenger> {
+    return this.http
+      // Send a put request to the Passenger API
+      .put(`${PASSENGER_API}/${passenger.id}`, passenger)
+      .map((response: Response) => response.json());
+  }
+
+  deletePassenger(passenger: Passenger): Observable<Passenger> {
+    return this.http
+      .delete(`${PASSENGER_API}/${passenger.id}`)
+      .map((response: Response) => response.json());
+  }
 }

@@ -21,6 +21,4 @@ export class PassengerCountComponent {
     if (!this.items) return;
     return this.items.filter((passenger: Passenger) => passenger.checkedIn).length;
   }
-
-
 }
