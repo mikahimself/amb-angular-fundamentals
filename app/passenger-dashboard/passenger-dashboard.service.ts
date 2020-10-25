@@ -2,6 +2,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/Observable/throw';
 // If you need to use promises, import toPromise
 //import 'rxjs/add/operator/toPromise';
 import { Passenger } from './models/passenger.interface';
@@ -28,6 +30,8 @@ export class PassengerDashboardService {
       // - Response from @angular/http
       // - map from rxjs/add/operator/map
       .map((response: Response) => response.json())
+      // In case of an error, throw the error as json
+      .catch((error: any) => Observable.throw(error.json()));
   }
 
   // Version of getPassengers using promises.
@@ -52,12 +56,14 @@ export class PassengerDashboardService {
     return this.http
       // Send a put request to the Passenger API; Add RequestOptions as a parameter.
       .put(`${PASSENGER_API}/${passenger.id}`, passenger, options)
-      .map((response: Response) => response.json());
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()));
   }
 
   deletePassenger(passenger: Passenger): Observable<Passenger> {
     return this.http
       .delete(`${PASSENGER_API}/${passenger.id}`)
-      .map((response: Response) => response.json());
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()));
   }
 }
