@@ -1,4 +1,4 @@
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -29,9 +29,17 @@ export class PassengerDashboardService {
   }
 
   updatePassenger(passenger: Passenger): Observable<Passenger> {
+    // Example: Create a header that sets the content type to json.
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    // Example: Create RequestOptions that use the header defined above
+    let options = new RequestOptions({
+      headers: headers
+    });
     return this.http
-      // Send a put request to the Passenger API
-      .put(`${PASSENGER_API}/${passenger.id}`, passenger)
+      // Send a put request to the Passenger API; Add RequestOptions as a parameter.
+      .put(`${PASSENGER_API}/${passenger.id}`, passenger, options)
       .map((response: Response) => response.json());
   }
 
