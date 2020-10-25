@@ -6,8 +6,9 @@ import { Passenger } from '../../models/passenger.interface';
   template: `
     <div>
       <h3>Airline Passengers</h3>
+      <!-- Since data is being loaded async, use the safe navigation operator with items.length --> 
       <div>
-        Total checked in: {{ checkedItemCount() }}/{{ items.length }}
+        Total checked in: {{ checkedItemCount() }}/{{ items?.length }}
       </div>
     </div>
   `
@@ -20,6 +21,4 @@ export class PassengerCountComponent {
     if (!this.items) return;
     return this.items.filter((passenger: Passenger) => passenger.checkedIn).length;
   }
-
-
 }
