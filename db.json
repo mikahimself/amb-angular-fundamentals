@@ -5,38 +5,35 @@
         "fullname": "Mika",
         "checkedIn": true,
         "checkedInDate": 1490742000000,
-        "children": [{ "name": "Joakim", "age": 12 }]
+        "baggage": ""
       },
       {
         "id": 2,
         "fullname": "Joakim",
         "checkedIn": true,
         "checkedInDate": 1491606000000,
-        "children": null
+        "baggage": ""
       },
       {
         "id": 3,
-        "fullname": "Esko Mörkö",
+        "fullname": "Frisk",
         "checkedIn": false,
         "checkedInDate": null,
-        "children": null
+        "baggage": ""
       },
       {
         "id": 4,
-        "fullname": "Spönteri Könteri",
+        "fullname": "Chara",
         "checkedIn": true,
         "checkedInDate": 1488412800000,
-        "children": [
-          { "name": "Birgitta", "age": 6 },
-          { "name": "Ruustinna", "age": 15 }
-        ]
+        "baggage": ""
       },
       {
         "id": 5,
         "fullname": "Frida",
         "checkedIn": false,
         "checkedInDate": null,
-        "children": null
+        "baggage": ""
       }
     ]
 }
