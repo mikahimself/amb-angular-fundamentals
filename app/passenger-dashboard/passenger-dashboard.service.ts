@@ -44,6 +44,13 @@ export class PassengerDashboardService {
       .then((response: Response) => response.json())
   }*/
 
+  getPassenger(id: number): Observable<Passenger> {
+    return this.http
+      .get(`${PASSENGER_API}/${id}`)
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   updatePassenger(passenger: Passenger): Observable<Passenger> {
     // Example: Create a header that sets the content type to json.
     let headers = new Headers({
