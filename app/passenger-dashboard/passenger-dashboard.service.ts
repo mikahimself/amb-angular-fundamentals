@@ -2,6 +2,8 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+// If you need to use promises, import toPromise
+//import 'rxjs/add/operator/toPromise';
 import { Passenger } from './models/passenger.interface';
 
 
@@ -27,6 +29,16 @@ export class PassengerDashboardService {
       // - map from rxjs/add/operator/map
       .map((response: Response) => response.json())
   }
+
+  // Version of getPassengers using promises.
+  // Use the same pattern for other functions, too.
+  // And remember to update Dashboard, too.
+  /*getPassengers(): Promise<Passenger[]> {
+    return this.http
+      .get(PASSENGER_API)
+      .toPromise()
+      .then((response: Response) => response.json())
+  }*/
 
   updatePassenger(passenger: Passenger): Observable<Passenger> {
     // Example: Create a header that sets the content type to json.
