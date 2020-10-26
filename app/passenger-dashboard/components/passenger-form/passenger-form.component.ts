@@ -38,6 +38,7 @@ import { Passenger } from '../../models/passenger.interface';
         <!-- Because the radio buttons have the same name, they'll talk to each other. -->
         <!-- By using the angular binding for value, true and false get passed in as -->
         <!-- booleans and not as strings. -->
+        <!--
         <label>
           <input
             type="radio"
@@ -47,6 +48,7 @@ import { Passenger } from '../../models/passenger.interface';
             (ngModelChange)="toggleCheckIn($event)">
             Yes
         </label>
+        
         <label>
           <input
             type="radio"
@@ -55,6 +57,15 @@ import { Passenger } from '../../models/passenger.interface';
             [ngModel]="detail?.checkedIn"
             (ngModelChange)="toggleCheckIn($event)">
             No
+        </label>
+        -->
+        <label>
+          <input
+            type="checkbox"
+            name="checkedIn"
+            [ngModel]="detail?.checkedIn"
+            (ngModelChange)="toggleCheckIn($event)">
+            Checked In?
         </label>
       </div>
 
