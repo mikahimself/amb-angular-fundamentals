@@ -33,6 +33,40 @@ import { Passenger } from '../../models/passenger.interface';
           name="id"
           [ngModel]="detail?.id">
       </div>
+
+      <div>
+        <!-- Because the radio buttons have the same name, they'll talk to each other. -->
+        <!-- By using the angular binding for value, true and false get passed in as -->
+        <!-- booleans and not as strings. -->
+        <label>
+          <input
+            type="radio"
+            name="checkedIn"
+            [value]="true"
+            [ngModel]="detail?.checkedIn"
+            (ngModelChange)="toggleCheckIn($event)">
+            Yes
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="checkedIn"
+            [value]="false"
+            [ngModel]="detail?.checkedIn"
+            (ngModelChange)="toggleCheckIn($event)">
+            No
+        </label>
+      </div>
+
+      <!-- Check for the local form value and show div if it's available. -->
+      <div *ngIf="form.value.checkedIn">
+        Check-in date:
+        <input
+          type="number"
+          name="checkedInDate"
+          [ngModel]="detail.checkedInDate">
+      </div>
+
       <!-- Because we created a templateref (#form), we can peek at its value. -->
       {{ form.value | json}}
   </form>
@@ -41,4 +75,11 @@ import { Passenger } from '../../models/passenger.interface';
 export class PassengerFormComponent {
   @Input()
   detail: Passenger;
+
+  toggleCheckIn(checkIn: boolean) {
+    if (checkIn) {
+      // this.detail.checkedInDate = +new Date()
+      this.detail.checkedInDate = Date.now();
+    }
+  }
 }
