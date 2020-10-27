@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Passenger } from '../../models/passenger.interface';
 import { Baggage } from '../../models/baggage.interface';
 
@@ -11,7 +11,10 @@ import { Baggage } from '../../models/baggage.interface';
     <!-- Unlike the native <form> element, NgForm also has a form property, that allows you to -->
     <!-- disable the submit button if someform.form.valid is false. -->
     <!-- novalidate attribute disables the browser's native form validation -->
-    <form #form="ngForm" novalidate>
+    <!-- -->
+    <!-- ngSubmit is preferred over submit, and also does extra stuff under the hood. -->
+    <!-- Most importantly, it tells the ngForm that it has been submitted. -->
+    <form (ngSubmit)="handleSubmit(form.value, form.valid)" #form="ngForm" novalidate>
       <div>
         Passenger name:
         <!-- Each input in a template driven form must have a name. -->
@@ -125,6 +128,9 @@ export class PassengerFormComponent {
   @Input()
   detail: Passenger;
 
+  @Output()
+  update: EventEmitter<Passenger> = new EventEmitter<Passenger>();
+
   baggage: Baggage[] = [
     {
       key: 'none',
@@ -145,6 +151,15 @@ export class PassengerFormComponent {
     if (checkIn) {
       // this.detail.checkedInDate = +new Date()
       this.detail.checkedInDate = Date.now();
+    }
+  }
+
+  // Dumb components should not talk with an API.
+  // Instead, we use an output to emit an event to the parent
+  // when the form gets submitted.
+  handleSubmit(passenger: Passenger, isValid: boolean) {
+    if (isValid) {
+      this.update.emit(passenger);
     }
   }
 }
