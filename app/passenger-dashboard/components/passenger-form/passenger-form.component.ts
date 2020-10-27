@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Passenger } from '../../models/passenger.interface';
+import { Baggage } from '../../models/baggage.interface';
 
 @Component({
   selector: 'passenger-form',
@@ -78,6 +79,26 @@ import { Passenger } from '../../models/passenger.interface';
           [ngModel]="detail.checkedInDate">
       </div>
 
+      <div>
+        Luggage:
+        <!-- ngModel binds the control to detail.baggage, which then gets updated -->
+        <!-- with the value that the user selects. -->
+        <select
+          name="baggage"
+          [ngModel]="detail?.baggage">
+          <!-- If the customer has baggage defined and it matches an item.key, -->
+          <!-- mark that option as selected. -->
+          <!-- Shorter way to achieve the same would be to use [ngValue]="item.key" -->
+          <!-- in place of [value] and [selected]. -->
+          <option 
+            *ngFor="let item of baggage"
+            [value]="item.key"
+            [selected]="item.key === detail?.baggage">
+            {{ item.value }}
+          </option>
+
+        </select>
+      </div>
       <!-- Because we created a templateref (#form), we can peek at its value. -->
       {{ form.value | json}}
   </form>
@@ -86,6 +107,22 @@ import { Passenger } from '../../models/passenger.interface';
 export class PassengerFormComponent {
   @Input()
   detail: Passenger;
+
+  baggage: Baggage[] = [
+    {
+      key: 'none',
+      value: 'No baggage'
+    },{
+      key: 'hand-only',
+      value: 'Hand baggage'
+    },{
+      key: 'hold-only',
+      value: 'Hold baggage'
+    },{
+      key: 'hand-hold',
+      value: 'Hand and hold baggage'
+    }
+  ];
 
   toggleCheckIn(checkIn: boolean) {
     if (checkIn) {
