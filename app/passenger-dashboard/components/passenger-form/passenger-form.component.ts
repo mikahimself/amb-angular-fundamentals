@@ -24,15 +24,27 @@ import { Baggage } from '../../models/baggage.interface';
         <input
           type="text"
           name="fullname"
+          required
+          #fullname="ngModel"
           [ngModel]="detail?.fullname">
+        <!-- fullname.dirty can be used to show errors only when the user has interacted with the field. -->
+        <div *ngIf="fullname.errors?.required && fullname.dirty" class="error">
+          Please enter a name
+        </div>
       </div>
 
       <div>
         Passenger ID:
+        <!-- Templateref can also be used to export the local ngModel of inputs -->
         <input
           type="number"
           name="id"
+          required
+          #id="ngModel"
           [ngModel]="detail?.id">
+          <div *ngIf="id.errors?.required && id.dirty" class="error">
+          Please enter an ID
+        </div>
       </div>
 
       <div>
@@ -100,7 +112,9 @@ import { Baggage } from '../../models/baggage.interface';
         </select>
       </div>
       <!-- Because we created a templateref (#form), we can peek at its value. -->
-      {{ form.value | json}}
+      <div>{{ form.value | json}}</div>
+      <div>Valid: {{ form.valid | json}}</div>
+      <div>Invalid: {{ form.invalid | json}}</div>
   </form>
   `
 })
