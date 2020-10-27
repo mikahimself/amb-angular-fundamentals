@@ -12,7 +12,6 @@ import { Baggage } from '../../models/baggage.interface';
     <!-- disable the submit button if someform.form.valid is false. -->
     <!-- novalidate attribute disables the browser's native form validation -->
     <form #form="ngForm" novalidate>
-      {{ detail | json }}
       <div>
         Passenger name:
         <!-- Each input in a template driven form must have a name. -->
@@ -112,9 +111,13 @@ import { Baggage } from '../../models/baggage.interface';
         </select>
       </div>
       <!-- Because we created a templateref (#form), we can peek at its value. -->
-      <div>{{ form.value | json}}</div>
+      <!--<div>{{ form.value | json}}</div>
       <div>Valid: {{ form.valid | json}}</div>
-      <div>Invalid: {{ form.invalid | json}}</div>
+      <div>Invalid: {{ form.invalid | json}}</div>-->
+
+      <button type="submit" [disabled]="form.invalid">
+        Update passenger
+      </button>
   </form>
   `
 })
