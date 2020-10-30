@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { PassengerDashboardModule } from './passenger-dashboard/passenger-dashboard.module';
 
@@ -10,13 +11,15 @@ import { PassengerDashboardModule } from './passenger-dashboard/passenger-dashbo
 // we can define the routes here.
 // The Home component will be used as the app root.
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' }
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
