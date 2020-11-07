@@ -9,6 +9,9 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./passenger-viewer.component.scss'],
   template: `
     <div>
+      <button (click)="goBack()">
+        &lsaquo; Go back
+      </button>
       <!-- Here we are passing the passenger object to the detail @Input -->
       <!-- and catching the update @output from passenger-form -->
       <passenger-form 
@@ -47,5 +50,10 @@ export class PassengerViewerComponent implements OnInit {
         // and assigning the new passenger object to this.passenger.
         this.passenger = Object.assign({}, this.passenger, event)
       })
+  }
+
+  goBack() {
+    // Imperative routing: using the native routing API instead of, for instance, routerLink.
+    this.router.navigate(['passengers'])
   }
 }

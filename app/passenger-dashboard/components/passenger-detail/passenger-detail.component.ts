@@ -33,6 +33,12 @@ import { Passenger } from '../../models/passenger.interface';
       <button (click)="onRemove()">
         Remove
       </button>
+      <!-- Since this is a stateless component, we don't want to create a routerLink.   -->
+      <!-- Instead, we'll add a function that fires an event to inform the parent class -->
+      <!-- that the user wants to view a certain passenger. -->
+      <button (click)="goToPassenger()">
+        View
+      </button>
     </div>
   `
 })
@@ -42,9 +48,12 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
   detail: Passenger;
 
   @Output()
-  remove: EventEmitter<any> = new EventEmitter();
+  remove: EventEmitter<Passenger> = new EventEmitter<Passenger>();
   @Output()
-  edit: EventEmitter<any> = new EventEmitter();
+  edit: EventEmitter<Passenger> = new EventEmitter<Passenger>();
+  @Output()
+  view: EventEmitter<Passenger> = new EventEmitter<Passenger>();
+  
   editing: boolean = false;
   constructor() { }
 
@@ -74,5 +83,9 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
   onRemove() {
     // Parent needs to be informed when a passenger is removed by emitting an event.
     this.remove.emit(this.detail);
+  }
+
+  goToPassenger() {
+    this.view.emit(this.detail);
   }
 }
