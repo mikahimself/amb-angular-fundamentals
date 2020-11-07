@@ -11,6 +11,8 @@ import { PassengerDashboardModule } from './passenger-dashboard/passenger-dashbo
 // we can define the routes here.
 // The Home component will be used as the app root.
 const routes: Routes = [
+  // Redirects can be used to open different views
+  //{ path: '', redirectTo: 'passengers', pathMatch: 'full' },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
@@ -24,6 +26,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     CommonModule,
+    // To support older browsers, hash location can be used
+    //RouterModule.forRoot(routes, { useHash: true }),
     RouterModule.forRoot(routes),
     PassengerDashboardModule
   ],
