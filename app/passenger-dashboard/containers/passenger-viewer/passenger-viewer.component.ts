@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PassengerDashboardService } from '../../passenger-dashboard.service';
 import { Passenger } from '../../models/passenger.interface';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'passenger-viewer',
@@ -19,13 +21,21 @@ import { Passenger } from '../../models/passenger.interface';
 export class PassengerViewerComponent implements OnInit {
   passenger: Passenger;
   
-  constructor(private passengerService: PassengerDashboardService) {}
+  constructor(
+    // Inject router and activated route to access route params
+    private router: Router,
+    private route: ActivatedRoute,
+    private passengerService: PassengerDashboardService) {}
+  
   ngOnInit() {
-    this.passengerService
-      .getPassenger(1)
-      .subscribe((data: Passenger) => {
-        this.passenger = data
-      });
+    this.route.params
+      // switchMap expects an observable, which we can get from getPassenger().
+      // We take the data (That is, the passenger ID from this.route.params),
+      // pass it on to getPassenger(). Once the service request is resolved, 
+      // we get the passenger data back through the subscribtion and bind it to 
+      // this.passenger.
+      .switchMap((data: Passenger) => this.passengerService.getPassenger(data.id))
+      .subscribe((data: Passenger) => this.passenger = data);
   }
 
   onUpdatePassenger(event: Passenger) {
