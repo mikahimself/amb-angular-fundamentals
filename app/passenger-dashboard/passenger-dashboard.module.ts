@@ -18,7 +18,13 @@ import { PassengerDashboardService } from './passenger-dashboard.service';
 const routes: Routes = [
   {
     path: 'passengers',
-    component: PassengerDashboardComponent
+    children: [
+      // This is the first thing that is loaded when the user
+      // hits the 'passengers' route.
+      { path: '', component: PassengerDashboardComponent },
+      // This path picks up the id after the forward slash
+      { path: ':id', component: PassengerViewerComponent }
+    ]
   }
 ]
 
@@ -39,6 +45,4 @@ const routes: Routes = [
   // Exports were removed because we use routing to get to the components.
   providers: [PassengerDashboardService]
 })
-export class PassengerDashboardModule {
-  
-}
+export class PassengerDashboardModule {}
