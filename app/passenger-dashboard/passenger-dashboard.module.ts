@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 // Containers
 import { PassengerDashboardComponent } from './containers/passenger-dashboard/passenger-dashboard.component';
 import { PassengerViewerComponent } from './containers/passenger-viewer/passenger-viewer.component';
@@ -14,6 +15,19 @@ import { PassengerFormComponent } from './components/passenger-form/passenger-fo
 // Service 
 import { PassengerDashboardService } from './passenger-dashboard.service';
 
+const routes: Routes = [
+  {
+    path: 'passengers',
+    children: [
+      // This is the first thing that is loaded when the user
+      // hits the 'passengers' route.
+      { path: '', component: PassengerDashboardComponent },
+      // This path picks up the id after the forward slash
+      { path: ':id', component: PassengerViewerComponent }
+    ]
+  }
+]
+
 @NgModule({
   declarations: [
     PassengerDashboardComponent,
@@ -25,14 +39,10 @@ import { PassengerDashboardService } from './passenger-dashboard.service';
   imports: [
     CommonModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forChild(routes)
   ],
-  exports: [
-    PassengerDashboardComponent,
-    PassengerViewerComponent
-  ],
+  // Exports were removed because we use routing to get to the components.
   providers: [PassengerDashboardService]
 })
-export class PassengerDashboardModule {
-  
-}
+export class PassengerDashboardModule {}
